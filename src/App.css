@@ -1,0 +1,14 @@
+/* card component section */
+#cardsSection {
+  padding: 100px 0;
+}
+
+.cardimg {
+  height: 200px;
+}
+
+/* footer */
+footer {
+  width: 100%;
+  padding: 20px 0;
+}
