@@ -1,14 +1,20 @@
 import React from "react";
 import Container from "react-bootstrap/esm/Container";
-import RestaurantList from "../Components/Cards";
+import Header from "./Header";
+import Footer from "./Footer";
+import Cards from "../Components/Cards";
 
 const Home = () => {
   return (
-    <section id="cardsSection">
-      <Container>
-        <RestaurantList />
-      </Container>
-    </section>
+    <>
+      <Header />
+      <section id="cardsSection">
+        <Container>
+          <Cards />
+        </Container>
+      </section>
+      <Footer />
+    </>
   );
 };
 

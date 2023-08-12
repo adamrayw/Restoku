@@ -1,16 +1,15 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Header from "./Pages/Header";
-import Footer from "./Pages/Footer";
 import Home from "./Pages/Home";
+import { Route, Routes } from "react-router-dom";
+import DetailPage from "./Pages/DetailPage";
 
 function App() {
   return (
-    <>
-      <Header />
-      <Home />
-      <Footer />
-    </>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/detail/:id" element={<DetailPage />} />
+    </Routes>
   );
 }
 

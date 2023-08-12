@@ -3,6 +3,7 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/esm/Col";
 import Row from "react-bootstrap/esm/Row";
+import { Link } from "react-router-dom";
 
 const apiList = `https://restaurant-api.dicoding.dev/list`;
 const mediumResolution = `https://restaurant-api.dicoding.dev/images/medium/`;
@@ -32,7 +33,9 @@ function RestaurantCard({ restaurant }) {
         alt={restaurant.name}
       />
       <Card.Body>
-        <Card.Title>{restaurant.name}</Card.Title>
+        <Link to={`/detail/${restaurant.id}`}>
+          <Card.Title>{restaurant.name}</Card.Title>
+        </Link>
         <div className="cityNrating d-flex justify-content-between">
           <h5 className="city">Kota: {restaurant.city}</h5>
           <h5 className="rating">Rating: {restaurant.rating}</h5>
@@ -44,7 +47,7 @@ function RestaurantCard({ restaurant }) {
   );
 }
 
-function RestaurantList() {
+function Cards() {
   const [restaurants, setRestaurants] = useState([]);
 
   useEffect(() => {
@@ -66,4 +69,4 @@ function RestaurantList() {
   );
 }
 
-export default RestaurantList;
+export default Cards;
