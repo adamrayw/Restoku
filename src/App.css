@@ -1,14 +1,34 @@
+/* Navbar */
+.navBar {
+  background-color: rgb(50, 38, 83);
+}
+
 /* card component section */
 #cardsSection {
   padding: 100px 0;
+}
+
+.cards {
+  background-color: rgb(201, 188, 227);
+}
+
+.cardLink {
+  color: rgb(128, 98, 214);
+  text-decoration: none;
 }
 
 .cardimg {
   height: 200px;
 }
 
+/* card detail */
+#cardDetailSection {
+  padding: 100px 0;
+}
 /* footer */
 footer {
+  color: white;
+  background-color: rgb(50, 38, 83);
   width: 100%;
-  padding: 20px 0;
+  padding: 10px 0;
 }

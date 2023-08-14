@@ -9,6 +9,10 @@ const Home = () => {
     <>
       <Header />
       <section id="cardsSection">
+        <div className="head text-center text-black">
+          <h2>Welcome Guests</h2>
+          <h3>please choose the restaurant you are interested in</h3>
+        </div>
         <Container>
           <Cards />
         </Container>

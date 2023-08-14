@@ -25,15 +25,15 @@ function truncateDescription(description, wordCount) {
 function RestaurantCard({ restaurant }) {
   const truncatedDescription = truncateDescription(restaurant.description, 30);
   return (
-    <Card>
+    <Card className="rounded-3">
       <Card.Img
         className="cardimg"
         variant="top"
         src={`${mediumResolution}${restaurant.pictureId}`}
         alt={restaurant.name}
       />
-      <Card.Body>
-        <Link to={`/detail/${restaurant.id}`}>
+      <Card.Body className="cards text-black">
+        <Link className="cardLink" to={`/detail/${restaurant.id}`}>
           <Card.Title>{restaurant.name}</Card.Title>
         </Link>
         <div className="cityNrating d-flex justify-content-between">
@@ -41,7 +41,6 @@ function RestaurantCard({ restaurant }) {
           <h5 className="rating">Rating: {restaurant.rating}</h5>
         </div>
         <Card.Text>{truncatedDescription}</Card.Text>
-        <Button variant="primary">View Details</Button>
       </Card.Body>
     </Card>
   );

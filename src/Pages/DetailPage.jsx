@@ -7,7 +7,9 @@ const DetailPage = () => {
   return (
     <>
       <Header />
-      <CardDetail />
+      <section id="cardDetailSection">
+        <CardDetail />
+      </section>
       <Footer />
     </>
   );
