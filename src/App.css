@@ -25,6 +25,15 @@
 #cardDetailSection {
   padding: 100px 0;
 }
+
+#cardTitle {
+  color: rgb(128, 98, 214);
+}
+
+.review {
+  background-color: rgb(185, 168, 219);
+  padding: 5px;
+}
 /* footer */
 footer {
   color: white;

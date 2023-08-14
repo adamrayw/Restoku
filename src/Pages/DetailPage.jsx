@@ -8,7 +8,9 @@ const DetailPage = () => {
     <>
       <Header />
       <section id="cardDetailSection">
-        <CardDetail />
+        <div className="container">
+          <CardDetail />
+        </div>
       </section>
       <Footer />
     </>
