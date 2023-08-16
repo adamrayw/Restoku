@@ -1,25 +1,23 @@
 import React, { useEffect, useState } from "react";
-import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import Col from "react-bootstrap/esm/Col";
-import Row from "react-bootstrap/esm/Row";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
 import { Link } from "react-router-dom";
 
 const apiList = `https://restaurant-api.dicoding.dev/list`;
 const mediumResolution = `https://restaurant-api.dicoding.dev/images/medium/`;
 
-async function listRestaurant() {
-  const res = await fetch(apiList);
-  const data = await res.json();
+async function fetchRestaurants() {
+  const response = await fetch(apiList);
+  const data = await response.json();
   return data.restaurants;
 }
 
 function truncateDescription(description, wordCount) {
   const words = description.split(" ");
-  if (words.length <= wordCount) {
-    return description;
-  }
-  return words.slice(0, wordCount).join(" ") + "...";
+  return words.length <= wordCount
+    ? description
+    : words.slice(0, wordCount).join(" ") + "...";
 }
 
 function RestaurantCard({ restaurant }) {
@@ -48,23 +46,44 @@ function RestaurantCard({ restaurant }) {
 
 function Cards() {
   const [restaurants, setRestaurants] = useState([]);
+  const [searchKeyword, setSearchKeyword] = useState("");
 
   useEffect(() => {
     async function fetchData() {
-      const restaurantData = await listRestaurant();
+      const restaurantData = await fetchRestaurants();
       setRestaurants(restaurantData);
     }
     fetchData();
   }, []);
 
+  const filteredRestaurants = searchKeyword
+    ? restaurants.filter((restaurant) =>
+        restaurant.name.toLowerCase().includes(searchKeyword.toLowerCase())
+      )
+    : restaurants;
+
   return (
-    <Row>
-      {restaurants.map((restaurant) => (
-        <Col key={restaurant.id} lg={4} md={6} sm={12} className="my-3">
-          <RestaurantCard restaurant={restaurant} />
-        </Col>
-      ))}
-    </Row>
+    <div>
+      <div className="search-container">
+        <input
+          type="text"
+          placeholder="Cari nama restoran..."
+          value={searchKeyword}
+          onChange={(e) => setSearchKeyword(e.target.value)}
+        />
+      </div>
+      <Row>
+        {filteredRestaurants.length === 0 ? (
+          <p className="no-results">Tidak ada restoran yang ditemukan.</p>
+        ) : (
+          filteredRestaurants.map((restaurant) => (
+            <Col key={restaurant.id} lg={4} md={6} sm={12} className="my-3">
+              <RestaurantCard restaurant={restaurant} />
+            </Col>
+          ))
+        )}
+      </Row>
+    </div>
   );
 }
 
