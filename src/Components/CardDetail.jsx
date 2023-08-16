@@ -3,12 +3,14 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Card from "react-bootstrap/Card";
 import { AiOutlineStar } from "react-icons/ai";
+import { BsBookmarkStar, BsBookmarkStarFill } from "react-icons/bs";
 
 const mediumResolution = "https://restaurant-api.dicoding.dev/images/medium/";
 
 function CardDetail() {
   const { id } = useParams();
   const [restaurant, setRestaurant] = useState(null);
+  const [isBookmarkFilled, setIsBookmarkFilled] = useState(false);
 
   useEffect(() => {
     async function fetchRestaurant() {
@@ -22,11 +24,34 @@ function CardDetail() {
   }, [id]);
 
   if (!restaurant) {
-    return <p>Loading...</p>;
+    return (
+      <div className="text-center">
+        <h1>Mohon Tunggu...</h1>;
+      </div>
+    );
   }
+
+  const handleStarClick = () => {
+    setIsBookmarkFilled(!isBookmarkFilled);
+  };
 
   return (
     <Card className="rounded-3">
+      {isBookmarkFilled ? (
+        <BsBookmarkStarFill
+          id="bookmarkFill"
+          className="bookmarkPosition position-absolute end-0 text-black"
+          size={50}
+          onClick={handleStarClick}
+        />
+      ) : (
+        <BsBookmarkStar
+          id="bookmark"
+          className="bookmarkPosition position-absolute end-0 text-black"
+          size={50}
+          onClick={handleStarClick}
+        />
+      )}
       <Card.Img
         variant="top"
         src={`${mediumResolution}${restaurant.pictureId}`}
@@ -34,9 +59,8 @@ function CardDetail() {
       />
       <Card.Body className="cards">
         <Card.Title id="cardTitle">{restaurant.name}</Card.Title>
-        <div className="kategori d-flex justify-content-between">
-          <h5>{restaurant.categories[0].name}</h5>
-          <h5>{restaurant.categories[1].name}</h5>
+        <div className="kategori d-flex">
+          <h5>Kategori: {restaurant.categories[0].name}</h5>
         </div>
         <div className="kotaDanRating d-flex justify-content-between">
           <h5>Kota: {restaurant.city}</h5>
@@ -46,7 +70,7 @@ function CardDetail() {
           </h5>
         </div>
         <p>{restaurant.description}</p>
-        <div className="menu d-flex justify-content-around">
+        <div className="menu d-flex justify-content-around my-3 rounded-3">
           <ul className="food">
             <div className="tengah">
               <h5>Makanan</h5>
