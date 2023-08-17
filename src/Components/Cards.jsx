@@ -54,7 +54,7 @@ function Cards() {
   }, []);
 
   const filteredRestaurants = searchKeyword
-    ? res.filter((restaurant) =>
+    ? restaurants.filter((restaurant) =>
         restaurant.name.toLowerCase().includes(searchKeyword.toLowerCase())
       )
     : restaurants;
