@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import Card from "react-bootstrap/Card";
 import { AiOutlineStar } from "react-icons/ai";
 import { BsBookmarkStar, BsBookmarkStarFill } from "react-icons/bs";
+import { getDetailRestaurant } from "../CONFIG/ApiConsume";
 
 const mediumResolution = "https://restaurant-api.dicoding.dev/images/medium/";
 
@@ -14,11 +15,12 @@ function CardDetail() {
 
   useEffect(() => {
     async function fetchRestaurant() {
-      const response = await fetch(
-        `https://restaurant-api.dicoding.dev/detail/${id}`
-      );
-      const data = await response.json();
-      setRestaurant(data.restaurant);
+      try {
+        const restaurantData = await getDetailRestaurant(id);
+        setRestaurant(restaurantData);
+      } catch (error) {
+        console.error("Error fetching restaurant details:", error);
+      }
     }
     fetchRestaurant();
   }, [id]);
