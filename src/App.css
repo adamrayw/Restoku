@@ -1,6 +1,6 @@
 /* Navbar */
 .navBar {
-  background-color: rgb(50, 38, 83);
+  background-color: rgb(211, 204, 228);
 }
 
 /* card component section */
@@ -44,10 +44,24 @@
   top: -40px;
 }
 
+.kotaDanRating {
+  display: flex;
+  justify-content: space-between;
+}
+
 /* footer */
 footer {
-  color: white;
-  background-color: rgb(50, 38, 83);
+  color: rgb(0, 0, 0);
+  background-color: rgb(211, 204, 228);
   width: 100%;
   padding: 10px 0;
+}
+
+/* responsive */
+
+@media (max-width: 768px) {
+  .kotaDanRating {
+    display: flex;
+    flex-wrap: wrap;
+  }
 }

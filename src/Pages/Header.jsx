@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 function Header() {
   return (
-    <Navbar expand="lg" className="navBar" data-bs-theme="dark">
+    <Navbar expand="lg" className="navBar">
       <Container fluid>
         <Navbar.Brand href="#">Restoku</Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
@@ -17,14 +17,16 @@ function Header() {
             style={{ maxHeight: "100px" }}
             navbarScroll
           >
-            <Nav.Link href="#action1">
-              <Link to="/" className="text-decoration-none text-white">
+            <Nav.Item>
+              <Link to="/" className="nav-link text-decoration-none text-black">
                 Home
               </Link>
-            </Nav.Link>
-            <Nav.Link href="#action2" className="text-white">
-              Favorite
-            </Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link href="#action2" className="text-black">
+                Favorite
+              </Nav.Link>
+            </Nav.Item>
           </Nav>
           <Form className="d-flex">
             <Form.Control
@@ -33,7 +35,7 @@ function Header() {
               className="me-2"
               aria-label="Search"
             />
-            <Button variant="outline-light">Search</Button>
+            <Button variant="outline-dark">Search</Button>
           </Form>
         </Navbar.Collapse>
       </Container>

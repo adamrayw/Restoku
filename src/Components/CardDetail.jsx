@@ -64,7 +64,7 @@ function CardDetail() {
         <div className="kategori d-flex">
           <h5>Kategori: {restaurant.categories[0].name}</h5>
         </div>
-        <div className="kotaDanRating d-flex justify-content-between">
+        <div className="kotaDanRating">
           <h5>Kota: {restaurant.city}</h5>
           <h5>Address: {restaurant.address}</h5>
           <h5>
