@@ -23,12 +23,12 @@ function Header() {
               </Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link href="#action2" className="text-black">
+              <Nav.Link href="#action2" disabled>
                 Favorite
               </Nav.Link>
             </Nav.Item>
           </Nav>
-          <Form className="d-flex">
+          {/* <Form className="d-flex">
             <Form.Control
               type="search"
               placeholder="Search"
@@ -36,7 +36,7 @@ function Header() {
               aria-label="Search"
             />
             <Button variant="outline-dark">Search</Button>
-          </Form>
+          </Form> */}
         </Navbar.Collapse>
       </Container>
     </Navbar>
