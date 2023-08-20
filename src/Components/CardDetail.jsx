@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -19,15 +20,16 @@ function CardDetail() {
     review: "",
   });
 
-  useEffect(() => {
-    async function fetchRestaurant() {
-      try {
-        const restaurantData = await getDetailRestaurant(id);
-        setRestaurant(restaurantData);
-      } catch (error) {
-        console.error("Error fetching restaurant details:", error);
-      }
+  async function fetchRestaurant() {
+    try {
+      const restaurantData = await getDetailRestaurant(id);
+      setRestaurant(restaurantData);
+    } catch (error) {
+      console.error("Error fetching restaurant details:", error);
     }
+  }
+
+  useEffect(() => {
     fetchRestaurant();
   }, [id]);
 
@@ -50,6 +52,8 @@ function CardDetail() {
 
     if (result.success) {
       console.log("sukses");
+      // update restaurant data
+      fetchRestaurant();
       setReview({ name: "", review: "" }); // clear
     } else {
       console.error("gagal:", result.error);
