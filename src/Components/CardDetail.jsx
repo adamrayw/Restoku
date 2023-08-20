@@ -1,10 +1,12 @@
-// RestaurantDetail.js
 import React, { useEffect, useState } from "react";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 import { useParams } from "react-router-dom";
 import Card from "react-bootstrap/Card";
 import { AiOutlineStar } from "react-icons/ai";
 import { BsBookmarkStar, BsBookmarkStarFill } from "react-icons/bs";
-import { getDetailRestaurant } from "../CONFIG/ApiConsume";
+import { getDetailRestaurant, postToApi } from "../CONFIG/ApiConsume";
 
 const mediumResolution = "https://restaurant-api.dicoding.dev/images/medium/";
 
@@ -12,6 +14,10 @@ function CardDetail() {
   const { id } = useParams();
   const [restaurant, setRestaurant] = useState(null);
   const [isBookmarkFilled, setIsBookmarkFilled] = useState(false);
+  const [review, setReview] = useState({
+    name: "",
+    review: "",
+  });
 
   useEffect(() => {
     async function fetchRestaurant() {
@@ -25,17 +31,38 @@ function CardDetail() {
     fetchRestaurant();
   }, [id]);
 
-  if (!restaurant) {
-    return (
-      <div className="text-center">
-        <h1>Mohon Tunggu...</h1>;
-      </div>
-    );
-  }
-
   const handleStarClick = () => {
     setIsBookmarkFilled(!isBookmarkFilled);
   };
+
+  const handleReviewSubmit = async (e) => {
+    e.preventDefault();
+
+    // buat review object
+    const reviewData = {
+      id: id,
+      name: review.name,
+      review: review.review,
+    };
+
+    // import POST dari api consume
+    const result = await postToApi(reviewData);
+
+    if (result.success) {
+      console.log("sukses");
+      setReview({ name: "", review: "" }); // clear
+    } else {
+      console.error("gagal:", result.error);
+    }
+  };
+
+  if (!restaurant) {
+    return (
+      <div className="text-center">
+        <h1>Mohon Tunggu...</h1>
+      </div>
+    );
+  }
 
   return (
     <Card className="rounded-3">
@@ -90,13 +117,65 @@ function CardDetail() {
             ))}
           </ul>
         </div>
-        <div className="review rounded-3">
-          <div className="tengah text-center">
-            <h5>Review</h5>
+
+        {/* Review Form */}
+        <form onSubmit={handleReviewSubmit}>
+          <div className="mb-3">
+            <label htmlFor="name" className="form-label">
+              Your Name
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="name"
+              name="name"
+              value={review.name}
+              onChange={(e) => setReview({ ...review, name: e.target.value })}
+              required
+            />
           </div>
-          <p>nama: {restaurant.customerReviews[0].name}</p>
-          <p>review: {restaurant.customerReviews[0].review}</p>
-          <p>tanggal review: {restaurant.customerReviews[0].date}</p>
+          <div className="mb-3">
+            <label htmlFor="review" className="form-label">
+              Your Review
+            </label>
+            <textarea
+              className="form-control"
+              id="review"
+              name="review"
+              rows="4"
+              value={review.review}
+              onChange={(e) => setReview({ ...review, review: e.target.value })}
+              required
+            />
+          </div>
+          <button type="submit" className="btn btn-primary">
+            Submit Review
+          </button>
+        </form>
+        {/* Display review */}
+        <div className="review rounded-3 my-3">
+          <div className="tengah text-center">
+            <h5>Reviews</h5>
+          </div>
+          <Container>
+            <Row>
+              {restaurant.customerReviews.map((customerReview, index) => (
+                <Col
+                  key={index}
+                  xs={12}
+                  md={6}
+                  lg={6}
+                  className="justify-content-center my-5"
+                >
+                  <div>
+                    <p>Name: {customerReview.name}</p>
+                    <p>Review: {customerReview.review}</p>
+                    <p>Date: {customerReview.date}</p>
+                  </div>
+                </Col>
+              ))}
+            </Row>
+          </Container>
         </div>
       </Card.Body>
     </Card>
